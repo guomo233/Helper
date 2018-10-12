@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" 
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.helper.dao.TaskDao">
+     <insert id="insert" parameterType="com.helper.pojo.Task">
+         insert into task (city, beginPosition, endPosition, beginTime, endTime, remark, demand, status, pay, receiveUsername, releaseUsername, updateTime) values (#{city},#{beginPosition},#{endPosition},#{beginTime},#{endTime},#{remark},#{demand},#{status},#{pay},#{receiveUsername},#{releaseUsername},#{updateTime})
+     </insert>
+     <delete id="delete">
+     	delete from task where taskId = #{taskId}
+     </delete>
+     <select id="select" resultType="com.helper.pojo.Task">
+         <if test="condition == 0">
+         	select * from task where receiveUsername is null and releaseUsername 
+         	<if test="username != null">
+         		!= #{username}
+         	</if>
+         	<if test="username == null">
+         		is not null
+         	</if>
+         </if>
+         <if test="condition == 1">
+         	select * from task where releaseUsername = #{username} order by updateTime desc
+         </if>
+         <if test="condition == 2">
+         	select * from task where receiveUsername = #{username} order by updateTime desc
+         </if>
+     </select>
+     <select id="selectByTaskId" resultType="com.helper.pojo.Task">
+         select * from task where taskId = #{taskId}
+     </select>
+     <update id="update" parameterType="com.helper.pojo.Task">
+         update task set city = #{city}, beginPosition = #{beginPosition}, endPosition = #{endPosition}, beginTime = #{beginTime}, endTime = #{endTime}, remark = #{remark}, demand = #{demand}, status = #{status}, pay = #{pay}, receiveUsername = #{receiveUsername}, releaseUsername = #{releaseUsername}, updateTime = #{updateTime} where taskId = #{taskId}
+     </update>
+</mapper>

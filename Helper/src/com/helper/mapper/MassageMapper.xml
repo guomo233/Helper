@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" 
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.helper.dao.MassageDao">
+     <insert id="insert" parameterType="com.helper.pojo.Massage">
+         insert into massage (senderUsername, targetUsername, title, content, sendTime, isSkimed) values (#{senderUsername},#{targetUsername},#{title},#{content},#{sendTime},#{isSkimed})
+     </insert>
+     <select id="select" resultType="com.helper.pojo.Massage">
+         select * from massage where
+         <if test="condition == 1">
+         	senderUsername
+         </if>
+         <if test="condition != 1">
+         	targetUsername
+         </if>
+         = #{username} order by sendTime desc
+     </select>
+     <update id="update" parameterType="com.helper.pojo.Massage">
+         update massage set senderUsername = #{senderUsername}, targetUsername = #{targetUsername}, title = #{title}, content = #{content}, sendTime = #{sendTime}, isSkimed = #{isSkimed} where massageId = #{massageId}
+     </update>
+</mapper>

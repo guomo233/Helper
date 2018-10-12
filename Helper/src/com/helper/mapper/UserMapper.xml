@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"   
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">  
+<mapper namespace="com.helper.dao.UserDao">
+     <insert id="insert" parameterType="com.helper.pojo.User">
+         insert into user (username, password, phone, finishTimes, evaluate, sex) values (#{username},#{password},#{phone},#{finishTimes},#{evaluate},#{sex})
+     </insert>
+     <delete id="delete">
+     	delete from user where username = #{username}
+     </delete>
+     <select id="select" resultType="com.helper.pojo.User">
+         select * from user where username = #{username}
+     </select>
+     <select id="selectUsePassword" resultType="com.helper.pojo.User">
+         select * from user where username = #{username} and password = #{password}
+     </select>
+     <update id="update" parameterType="com.helper.pojo.User">
+         update user set password = #{password}, phone = #{phone}, finishTimes = #{finishTimes}, evaluate = #{evaluate}, sex = #{sex} where username = #{username}
+     </update> 
+</mapper>
